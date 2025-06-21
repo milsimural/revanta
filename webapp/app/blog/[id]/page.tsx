@@ -1,13 +1,18 @@
-interface Params { params: { id: string } }
+// @ts-nocheck
+import fs from 'fs/promises';
+import path from 'path';
 
 async function getArticle(id: string) {
-  const res = await fetch(`http://localhost:3000/api/articles?id=${id}`);
-  if (!res.ok) return null;
-  const data = await res.json();
-  return Array.isArray(data) ? data[0] : data;
+  try {
+    const data = await fs.readFile(path.join(process.cwd(), 'data', 'articles.json'), 'utf-8');
+    const articles = JSON.parse(data);
+    return articles.find((a: any) => String(a.id) === id) || null;
+  } catch {
+    return null;
+  }
 }
 
-export default async function ArticlePage({ params }: Params) {
+export default async function ArticlePage({ params }: any) {
   const article = await getArticle(params.id);
   if (!article) return <div>Статья не найдена</div>;
   return (

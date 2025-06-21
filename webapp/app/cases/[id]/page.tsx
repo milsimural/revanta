@@ -1,13 +1,18 @@
-interface Params { params: { id: string } }
+// @ts-nocheck
+import fs from 'fs/promises';
+import path from 'path';
 
 async function getCase(id: string) {
-  const res = await fetch(`http://localhost:3000/api/cases?id=${id}`);
-  if (!res.ok) return null;
-  const data = await res.json();
-  return Array.isArray(data) ? data[0] : data;
+  try {
+    const data = await fs.readFile(path.join(process.cwd(), 'data', 'cases.json'), 'utf-8');
+    const cases = JSON.parse(data);
+    return cases.find((c: any) => String(c.id) === id) || null;
+  } catch {
+    return null;
+  }
 }
 
-export default async function CasePage({ params }: Params) {
+export default async function CasePage({ params }: any) {
   const c = await getCase(params.id);
   if (!c) return <div>Кейс не найден</div>;
   return (

@@ -1,9 +1,14 @@
 import Link from 'next/link';
+import fs from 'fs/promises';
+import path from 'path';
 
 async function getCases() {
-  const res = await fetch('http://localhost:3000/api/cases');
-  if (!res.ok) return [];
-  return res.json();
+  try {
+    const data = await fs.readFile(path.join(process.cwd(), 'data', 'cases.json'), 'utf-8');
+    return JSON.parse(data);
+  } catch {
+    return [];
+  }
 }
 
 export default async function Cases() {
