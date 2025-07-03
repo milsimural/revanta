@@ -1,0 +1,30 @@
+Datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+enum Role {
+  ADMIN
+  EDITOR
+  USER
+}
+
+model User {
+  id       Int    @id @default(autoincrement())
+  username String @unique
+  password String
+  role     Role
+  blocked  Boolean @default(false)
+}
+
+model PageMeta {
+  id          Int    @id @default(autoincrement())
+  route       String @unique
+  title       String
+  description String
+  keywords    String
+}

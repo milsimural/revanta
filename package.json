@@ -1,0 +1,33 @@
+{
+  "name": "revanta",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "node server.js",
+    "build": "next build",
+    "start": "NODE_ENV=production node server.js",
+    "prisma": "prisma",
+    "seed": "node prisma/seed.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "dependencies": {
+    "@prisma/client": "^6.11.1",
+    "autoprefixer": "^10.4.21",
+    "axios": "^1.10.0",
+    "bcrypt": "^6.0.0",
+    "daisyui": "^5.0.43",
+    "dotenv": "^17.0.1",
+    "express": "^5.1.0",
+    "marked": "^16.0.0",
+    "next": "^15.3.4",
+    "postcss": "^8.5.6",
+    "prisma": "^6.11.1",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0",
+    "tailwindcss": "^4.1.11"
+  }
+}
